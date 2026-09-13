@@ -1,0 +1,14 @@
+As system,
+I want to collect playback events,
+to build statistics
+
+---
+
+Given viewer starts playback
+When client sends heartbeat every 30 seconds
+Then playback-service publishes playback.heartbeat
+  And analytics-worker agregates data to ClickHouse
+
+Given playback finished
+When client sends POST /videos/{id}/playback/end
+Then publish playback.ended with a viewing time

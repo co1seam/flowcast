@@ -1,0 +1,5 @@
+Given service received SIGTERM
+When it completes
+Then it stop accepting new requests
+  And terminates current (withing 30 seconds)
+  And closes connections with dependencies correctly

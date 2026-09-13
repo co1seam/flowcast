@@ -1,0 +1,22 @@
+As system
+I want automatically transcode the uploaded video into HLS
+to that viewers can play it
+
+---
+
+Given received event video.uploaded
+When workflow-orchestrator launches SAGA
+Then a saga record is created with the STARTED status
+  And the video.transcode.start event is published
+
+Given transcoder-worder received the commang
+When it downloads the original from S3
+Then it runs ffmpeg to genereate HLS with bitrates 360p, 480p, 720p
+  And published video.transcode.completed upon completion with links to playlist
+  And updates video status on TRANSCODED
+
+Given ffmpeg ended with an error
+When worker handles the error
+Then it publishes video.transcode.failed
+  And SAGA launches compensation: removing temporary artifacts and marking the video as FAILED
+

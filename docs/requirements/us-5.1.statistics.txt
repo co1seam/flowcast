@@ -1,0 +1,13 @@
+As the author of the video,
+I want to see the number of viewes of my video
+to understand his pupularity
+
+---
+
+Given author authorized
+When it requestes GET /videos/{id}/stats
+Then returns 200 with total_views, unique_viewers, avg_watch_time
+
+Given author does not have the rights to this video
+When it asks for statistics
+Then returns 403 Forbidden

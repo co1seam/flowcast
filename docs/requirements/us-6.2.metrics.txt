@@ -1,0 +1,6 @@
+Given service works
+When prometheus scrapes /metrics
+Then are available:
+  - RED metrics for each HTTP endpoint
+  - counters and histograms for NATS events
+  - business metrics 

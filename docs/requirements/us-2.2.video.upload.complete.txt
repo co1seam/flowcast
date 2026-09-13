@@ -1,0 +1,15 @@
+As authorized user,
+I want accept upload completion,
+to start video processing
+
+---
+
+Given loading in S3 is complete
+When a user sends a POST /videos/{id}/complete
+Then video status changed on UPLOADED
+  And video.uploaded event published
+  And starts SAGA of processing
+
+Given video not found in S3
+When user confirms completion
+Then returns 400 Bad Request
