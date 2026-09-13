@@ -1,0 +1,21 @@
+As an authorized user,
+I want initialize upload video,
+to get presigned URL to directly load into S3
+
+
+---
+
+Given user is authorized
+  And his quota is not exhausted
+When it sends POST /videos with metadata (title, size, content_type)
+Then a video record is created with the status PENDING_UPLOAD
+  Adn returns 201 with video_id and presigned_url (TTL 1 hour)
+  And the video.upload_initiated event is published
+
+Given file size > 500 MB
+When the user initiates the uploading
+Then returns 413 Payload Too Large
+
+Given content_type not video/*
+When the user initiates the uploading
+Then returns 415 Unsupported Media Type

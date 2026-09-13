@@ -1,0 +1,7 @@
+Given service starts in kubernetes
+When kubelet does GET /healthz
+Then returns 200 if the service is alive
+
+When kubelet does GET /readyz
+Then returns 200 if service ready to accept traffic
+  And 503 if dependecies are not available

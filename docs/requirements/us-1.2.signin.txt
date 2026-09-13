@@ -1,0 +1,15 @@
+As registered user,
+I want to log in,
+to get JWT-token for access to API
+
+---
+
+Given user registered
+When it sends POST /user/sign-in with valid crendentials
+Then returns 200 with access_token (JWT, TTL 15 minutes)
+  And refresh_token (TTL 7 days)
+
+Given invalid password
+When user trying to log in
+Then returns 409 Unauthorized
+  And increments auth_login_failed_total metric

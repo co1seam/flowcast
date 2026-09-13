@@ -1,0 +1,14 @@
+As system,
+I want pack HLS-segments and make video accessible,
+to viewers can watch it
+
+---
+
+Given received video.transcode.completed event
+When orchestrator starts the next step
+Then is publish by the video.package.start event
+
+Given packager has finished
+Then master.m3u8 is available in S3
+  And video status of the changes on READY
+  And video.ready event is published

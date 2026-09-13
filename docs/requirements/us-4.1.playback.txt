@@ -1,0 +1,18 @@
+As viewer,
+I want get lint on HLS video manifesto,
+to start playing
+
+---
+
+Given video in READY status
+When the viewer sends GET /videos/{id]/playback
+Then returns 200 with presigned URL on master.m3u8 (TTL 4 hours)
+  And publish playback.started event
+
+Given video is not READY
+When viewer requests playback
+Then returns 409 Conflict with video status
+
+Given viewer is not authorized
+When it requests playback
+Then returns 401 Unauthorized

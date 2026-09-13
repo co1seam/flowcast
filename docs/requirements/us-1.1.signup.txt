@@ -1,0 +1,16 @@
+As new user,
+I want to register by email and password,
+to access the video downloads and views
+
+---
+
+Given user is not registered
+When it sends POST /auth/sign-up with valid email and password
+Then a creates user
+  And returns 201 with user_id
+  And the password is stored as bcrypt-hash
+  And the user.registered event is published 
+
+Given email is already busy
+When user trying to register
+Then returns 409 Conflict
